@@ -23,9 +23,7 @@ const BudgetItem = ({ budget, showDelete = false }) => {
         <small>{formatCurrency(amount - spent)}</small>
       </div>
       {showDelete ? (
-        <Form>
-          <p>Hi</p>
-        </Form>
+        <></>
       ) : (
         <Form>
           <Link to={`budget/${id}`}>

@@ -15,7 +15,9 @@ const Nav = ({ userName }) => {
           method='post'
           action='/logout'
           onSubmit={(event) => {
-            if (!window.confirm('Delete user and all data?')) {
+            if (
+              !window.confirm('Logout? You will need your trip name to login.')
+            ) {
               event.preventDefault();
             }
           }}

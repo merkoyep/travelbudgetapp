@@ -3,7 +3,7 @@ import { Form } from 'react-router-dom';
 
 const AddBudgetForm = () => {
   return (
-    <div className='w-fit border rounded-md gap-3 p-5 gap'>
+    <div className='w-full border rounded-md gap-3 p-5 gap shadow-md'>
       <h2 className='text-center text-lg font-semibold'>Create Budget</h2>
       <Form method='post' className='flex flex-col pt-3'>
         <div className='flex flex-col gap-2'>

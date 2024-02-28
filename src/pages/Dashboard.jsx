@@ -21,7 +21,7 @@ export function dashboardLoader() {
 export async function dashboardAction({ request }) {
   const data = await request.formData();
   const { _action, ...values } = Object.fromEntries(data);
-
+  // _action is the name of a hidden form field for each form. Replacing an OnSubmit callback
   if (_action === 'newUser') {
     try {
       localStorage.setItem('userName', JSON.stringify(values.userName));
@@ -30,7 +30,7 @@ export async function dashboardAction({ request }) {
       throw new Error('There was a problem creating your account.');
     }
   }
-  // If action is equal to a string, a helper function is called from helpers.js to add to db.
+
   if (_action === 'createBudget') {
     try {
       createBudget({
@@ -73,18 +73,19 @@ const Dashboard = () => {
   const [showAllExpenses, setShowAllExpenses] = useState(false);
   const expenses = loadedExpenses || [];
   const displayedExpenses = showAllExpenses
-    ? expenses.sort((a, b) => b.createdAt - a.createdAt).slice(8) // Show from 9th expense onwards when showAllExpenses is true
-    : expenses.sort((a, b) => b.createdAt - a.createdAt).slice(0, 8); // Show first 8 expenses by default
+    ? expenses.sort((a, b) => b.createdAt - a.createdAt).slice(0, 5) // Show first 5 expenses
+    : expenses.sort((a, b) => b.createdAt - a.createdAt).slice(0); // Show all expenses
+
   return (
-    <div className='pl-2'>
+    <div className='flex flex-col items-center pl-2'>
       {userName ? (
-        <div>
-          <h1 className='text-5xl py-3 pl-2 underline text-green-300'>
-            Welcome {userName}
+        <div className='flex flex-col align-items-center '>
+          <h1 className='text-5xl text-center font-bold py-3 pl-2 underline text-black'>
+            Lets go to {userName}!
           </h1>
           {budgets && budgets.length > 0 ? (
             <div>
-              <div>
+              <div className='flex flex-col items-center gap-2'>
                 <AddBudgetForm />
                 <AddExpenseForm budgets={budgets} />
               </div>
@@ -97,18 +98,19 @@ const Dashboard = () => {
               <div>
                 <h2>Recent Expenses</h2>
                 <Table expenses={displayedExpenses} />
-
                 <div>
                   <Link to='expenses'>View all Expenses</Link>
                   <button onClick={() => setShowAllExpenses(!showAllExpenses)}>
-                    {showAllExpenses ? 'Hide Expenses' : 'Show All Expenses'}
+                    {showAllExpenses ? 'Show Older Expenses' : 'Hide Expenses'}
                   </button>
                 </div>
               </div>
             </div>
           ) : (
             <div>
-              <p>Let's get budgeting! Add your first budget now.</p>
+              <p className='text-center'>
+                Let's get budgeting! Add your first budget now.
+              </p>
               <AddBudgetForm />
             </div>
           )}

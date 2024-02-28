@@ -8,8 +8,8 @@ const AddExpenseForm = ({ budgets }) => {
   const focusRef = useRef();
 
   return (
-    <div>
-      <h2>
+    <div className='w-full shadow-md border rounded-md gap-3 p-5 gap'>
+      <h2 className='text-center text-lg font-semibold'>
         Add New{' '}
         <span>
           {budgets.length === 1 && `${budgets.map((budg) => budg.name)} `}
@@ -17,7 +17,7 @@ const AddExpenseForm = ({ budgets }) => {
         Expense
       </h2>
       <fetcher.Form method='post' ref={formRef}>
-        <div>
+        <div className='flex gap-2'>
           <label htmlFor='newExpense'>Expense Name</label>
           <input
             type='text'
@@ -26,6 +26,7 @@ const AddExpenseForm = ({ budgets }) => {
             placeholder='e.g., Coffee'
             ref={focusRef}
             required
+            className='border'
           />
         </div>
         <div>

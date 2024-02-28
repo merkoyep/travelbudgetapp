@@ -1,24 +1,28 @@
 import { Form } from 'react-router-dom';
-import { UserPlusIcon } from '@heroicons/react/24/solid';
+import { PaperAirplaneIcon } from '@heroicons/react/24/solid';
 
 const Intro = () => {
   return (
-    <div className='intro'>
-      <div>
-        <h1>Take Control of your travel spending!!</h1>
-        <p>Have fun and be financially responsible!</p>
-        <Form method='post'>
+    <div className='w-fit border rounded-md gap-3 p-5 gap'>
+      <div className='flex flex-col gap-2 items-left'>
+        <h1 className='font-semibold text-5xl mt-8 mb-3'>Travel Budgeter</h1>
+        <p>Take Control of your travel spending!</p>
+        <Form method='post' className='flex gap-2'>
           <input
             type='text'
             name='userName'
             required
-            placeholder="What's your name?"
-            aria-label='your Name'
+            placeholder='Where are we going?'
+            aria-label='Your destination'
+            className='border text-center'
           />
           <input type='hidden' name='_action' value='newUser' />
-          <button type='submit' className='btn'>
-            Create Account
-            <UserPlusIcon width={20} />
+          <button
+            type='submit'
+            className='btn flex items-center border rounded-sm p-1'
+          >
+            <PaperAirplaneIcon width={20} />
+            Create Trip
           </button>
         </Form>
       </div>
