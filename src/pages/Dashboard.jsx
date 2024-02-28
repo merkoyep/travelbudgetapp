@@ -8,6 +8,7 @@ import BudgetItem from '../components/BudgetItem.jsx';
 import Table from '../components/Table.jsx';
 
 import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 export function dashboardLoader() {
   //This is where the username needs to be passed in.
@@ -68,7 +69,12 @@ export async function dashboardAction({ request }) {
 }
 
 const Dashboard = () => {
-  const { userName, budgets, expenses } = useLoaderData();
+  const { userName, budgets, expenses: loadedExpenses } = useLoaderData();
+  const [showAllExpenses, setShowAllExpenses] = useState(false);
+  const expenses = loadedExpenses || [];
+  const displayedExpenses = showAllExpenses
+    ? expenses.sort((a, b) => b.createdAt - a.createdAt).slice(8) // Show from 9th expense onwards when showAllExpenses is true
+    : expenses.sort((a, b) => b.createdAt - a.createdAt).slice(0, 8); // Show first 8 expenses by default
   return (
     <div className='pl-2'>
       {userName ? (
@@ -87,19 +93,18 @@ const Dashboard = () => {
                   <BudgetItem key={budget.id} budget={budget} />
                 ))}
               </div>
-              {expenses && expenses.length > 0 && (
+
+              <div>
+                <h2>Recent Expenses</h2>
+                <Table expenses={displayedExpenses} />
+
                 <div>
-                  <h2>Recent Expenses</h2>
-                  <Table
-                    expenses={expenses
-                      .sort((a, b) => b.createdAt - a.createdAt)
-                      .slice(0, 8)}
-                  />
-                  {expenses.length > 8 && (
-                    <Link to='expenses'>View all Expenses</Link>
-                  )}
+                  <Link to='expenses'>View all Expenses</Link>
+                  <button onClick={() => setShowAllExpenses(!showAllExpenses)}>
+                    {showAllExpenses ? 'Hide Expenses' : 'Show All Expenses'}
+                  </button>
                 </div>
-              )}
+              </div>
             </div>
           ) : (
             <div>
