@@ -14,21 +14,23 @@ const ExpenseItem = ({ expense, showBudget = true }) => {
     value: expense.budgetId,
   })[0];
   return (
-    <div>
-      <td>{expense.name}</td>
-      <td>{formatCurrency(expense.amount)}</td>
-      <td>{formatDateToLocaleString(expense.createdAt)}</td>
+    <>
+      <td className='text-center'>{expense.name}</td>
+      <td className='text-center'>{formatCurrency(expense.amount)}</td>
+      <td className='text-center'>
+        {formatDateToLocaleString(expense.createdAt)}
+      </td>
       {showBudget && budget && (
-        <td>
+        <td className='text-center'>
           <Link
             to={`/budget/${budget.id}`}
-            style={{ '--accent': budget.color }}
+            className='text-green-500 underline'
           >
             {budget.name}
           </Link>
         </td>
       )}
-      <td>
+      <td className='text-center'>
         <fetcher.Form method='post'>
           <input type='hidden' name='_action' value='deleteExpense' />
           <input type='hidden' name='expenseId' value={expense.id} />
@@ -37,7 +39,7 @@ const ExpenseItem = ({ expense, showBudget = true }) => {
           </button>
         </fetcher.Form>
       </td>
-    </div>
+    </>
   );
 };
 

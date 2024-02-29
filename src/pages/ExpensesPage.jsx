@@ -28,12 +28,14 @@ export async function expensesAction({ request }) {
 const ExpensesPage = () => {
   const { expenses } = useLoaderData();
   return (
-    <div>
-      <h1>All Expenses</h1>
+    <div className='flex flex-col items-center gap-5'>
+      <h1 className='text-5xl text-center py-3 pl-2 underline text-black'>
+        All Expenses
+      </h1>
       {expenses && expenses.length > 0 ? (
-        <div>
-          <h2>
-            Recent Expenses <small>({expenses.length}total)</small>
+        <div className='flex flex-col items-center border rounded-md p-5'>
+          <h2 className='text-xl font-bold'>
+            Recent Expenses <small>({expenses.length} total)</small>
           </h2>
           <Table expenses={expenses} />
         </div>

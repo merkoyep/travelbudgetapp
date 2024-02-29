@@ -14,7 +14,7 @@ const AddBudgetForm = () => {
               name='newBudget'
               id='newBudget'
               placeholder='e.g., Flights'
-              className='border rounded-sm'
+              className='border rounded-sm p-1'
               required
             ></input>
           </label>
@@ -31,7 +31,7 @@ const AddBudgetForm = () => {
               placeholder='$350'
               required
               inputMode='decimal'
-              className='border rounded-sm'
+              className='border rounded-sm p-1'
             ></input>
           </label>
         </div>
@@ -39,7 +39,7 @@ const AddBudgetForm = () => {
         <input type='hidden' name='_action' value='createBudget' />
         <button
           type='submit'
-          className='flex self-end items-center border mt-2 p-1 rounded-md'
+          className='flex self-end items-center border mt-2 p-2 rounded-md hover:bg-green-300 hover:text-white'
         >
           <CurrencyDollarIcon width={20} />
           Create Budget

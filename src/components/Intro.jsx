@@ -3,7 +3,10 @@ import { PaperAirplaneIcon } from '@heroicons/react/24/solid';
 
 const Intro = () => {
   return (
-    <div className='w-fit border rounded-md gap-3 p-5 gap'>
+    <div
+      className='self-start mt-40
+    ml-10'
+    >
       <div className='flex flex-col gap-2 items-left'>
         <h1 className='font-semibold text-5xl mt-8 mb-3'>Travel Budgeter</h1>
         <p>Take Control of your travel spending!</p>

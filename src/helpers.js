@@ -69,9 +69,9 @@ export const calculateSpentByBudget = (budgetId) => {
 // FORMATTING
 //Format Currency
 export const formatCurrency = (amount) => {
-  return amount.toLocaleString(undefined, {
+  return amount.toLocaleString('en-US', {
     style: 'currency',
-    currency: 'CAD',
+    currency: 'USD',
   });
 };
 

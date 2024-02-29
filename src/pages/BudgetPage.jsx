@@ -53,18 +53,23 @@ export async function budgetAction({ request }) {
 const BudgetPage = () => {
   const { budget, expenses } = useLoaderData();
   return (
-    <div>
-      <h1>{budget.name} Overview </h1>
-      <div>
+    <div className='flex flex-col items-center gap-5'>
+      <h1 className='text-5xl text-center py-3 pl-2 underline text-black'>
+        <span className='italic'>{budget.name}</span> Overview{' '}
+      </h1>
+      <div className='flex flex-col gap-5'>
         <BudgetItem budget={budget} />
         <AddExpenseForm budgets={[budget]} />
+
+        {expenses && expenses.length > 0 && (
+          <div className='flex flex-col border rounded-md py-5 px-2 mb-4'>
+            <h2 className='text-center text-xl text-bold'>
+              {budget.name} Expenses
+            </h2>
+            <Table expenses={expenses} showBudget={false} />
+          </div>
+        )}
       </div>
-      {expenses && expenses.length > 0 && (
-        <div>
-          <h2>{budget.name} Expenses</h2>
-          <Table expenses={expenses} showBudget={false} />
-        </div>
-      )}
     </div>
   );
 };

@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { useState } from 'react';
 
 export function dashboardLoader() {
-  //This is where the username needs to be passed in.
+  //Uses fetchData helper to get data from localstorage
   const userName = fetchData('userName');
   const budgets = fetchData('budgets');
   const expenses = fetchData('expenses');
@@ -25,7 +25,7 @@ export async function dashboardAction({ request }) {
   if (_action === 'newUser') {
     try {
       localStorage.setItem('userName', JSON.stringify(values.userName));
-      return toast.success(`Welcome, ${values.userName}`);
+      return toast.success(`Time to budget for ${values.userName}!`);
     } catch (e) {
       throw new Error('There was a problem creating your account.');
     }
@@ -73,42 +73,74 @@ const Dashboard = () => {
   const [showAllExpenses, setShowAllExpenses] = useState(false);
   const expenses = loadedExpenses || [];
   const displayedExpenses = showAllExpenses
-    ? expenses.sort((a, b) => b.createdAt - a.createdAt).slice(0, 5) // Show first 5 expenses
-    : expenses.sort((a, b) => b.createdAt - a.createdAt).slice(0); // Show all expenses
+    ? expenses.sort((a, b) => b.createdAt - a.createdAt).slice(0) // Show first 5 expenses
+    : expenses.sort((a, b) => b.createdAt - a.createdAt).slice(0, 5); // Show all expenses
 
   return (
     <div className='flex flex-col items-center pl-2'>
+      {/* Only show components if userName exists */}
       {userName ? (
         <div className='flex flex-col align-items-center '>
-          <h1 className='text-5xl text-center font-bold py-3 pl-2 underline text-black'>
-            Lets go to {userName}!
+          <h1 className='text-5xl text-center font-medium py-3 pl-2 my-2 underline underline-offset-4 text-black'>
+            Lets go to
+            <span className='text-green-500'> {userName}</span>!
           </h1>
+          {/* Show budgets if budgets exist */}
           {budgets && budgets.length > 0 ? (
             <div>
               <div className='flex flex-col items-center gap-2'>
                 <AddBudgetForm />
                 <AddExpenseForm budgets={budgets} />
               </div>
-              <div className='budgets'>
-                {budgets.map((budget) => (
-                  <BudgetItem key={budget.id} budget={budget} />
-                ))}
-              </div>
-
-              <div>
-                <h2>Recent Expenses</h2>
-                <Table expenses={displayedExpenses} />
-                <div>
-                  <Link to='expenses'>View all Expenses</Link>
-                  <button onClick={() => setShowAllExpenses(!showAllExpenses)}>
-                    {showAllExpenses ? 'Show Older Expenses' : 'Hide Expenses'}
-                  </button>
+              <div className='border rounded-md p-2 my-3'>
+                <h2 className='text-center font-bold text-lg p-5'>
+                  Budget Areas
+                </h2>
+                <div className='grid place-content-evenly grid-cols-3 gap-2'>
+                  {budgets.map((budget) => (
+                    <BudgetItem
+                      key={budget.id}
+                      budget={budget}
+                      dashboard={true}
+                    />
+                  ))}
                 </div>
               </div>
+
+              {expenses.length > 0 ? (
+                <div className='border rounded-md py-5 px-2 mb-4'>
+                  <h1 className='text-center text-xl font-bold'>
+                    Recent Expenses
+                  </h1>
+                  <Table expenses={displayedExpenses} />
+                  <div className='flex justify-center gap-5'>
+                    <Link
+                      to='expenses'
+                      className='border p-2 rounded-md hover:bg-green-300 hover:text-white'
+                    >
+                      View all Expenses
+                    </Link>
+                    {expenses.length > 5 ? (
+                      <button
+                        onClick={() => setShowAllExpenses(!showAllExpenses)}
+                        className='border p-2 rounded-md hover:bg-green-300 hover:text-white'
+                      >
+                        {showAllExpenses
+                          ? 'Hide Expenses'
+                          : 'Show Older Expenses'}
+                      </button>
+                    ) : (
+                      ''
+                    )}
+                  </div>
+                </div>
+              ) : (
+                ''
+              )}
             </div>
           ) : (
             <div>
-              <p className='text-center'>
+              <p className='text-center my-5'>
                 Let's get budgeting! Add your first budget now.
               </p>
               <AddBudgetForm />
