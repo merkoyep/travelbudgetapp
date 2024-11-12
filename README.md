@@ -21,7 +21,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ### Project Description
 
-- This application is a travel budgeting app that utilized local storage to track a user's budgets when travelling and their expenses. The project utilizes React, and a handful of additional libraries like react-router-dom, tailwindcss toastify, and hooks like useState.
+This application is a travel budgeting app that utilized local storage to track a user's budgets when travelling and their expenses. The project utilizes React, and a handful of additional libraries like react-router-dom, tailwindcss toastify, and hooks like useState.
 
 ### Project Learnings
 
