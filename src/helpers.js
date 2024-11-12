@@ -4,7 +4,8 @@ const generateRandomColor = () => {
 };
 // Local Storage functions
 export const fetchData = (key) => {
-  return JSON.parse(localStorage.getItem(key));
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : [];
 };
 
 // Get items from storage

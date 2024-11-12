@@ -78,14 +78,12 @@ const Dashboard = () => {
 
   return (
     <div className='flex flex-col items-center pl-2'>
-      {/* Only show components if userName exists */}
       {userName ? (
         <div className='flex flex-col align-items-center '>
           <h1 className='text-5xl text-center font-medium py-3 pl-2 my-2 underline underline-offset-4 text-black'>
             Lets go to
             <span className='text-green-500'> {userName}</span>!
           </h1>
-          {/* Show budgets if budgets exist */}
           {budgets && budgets.length > 0 ? (
             <div>
               <div className='flex flex-col items-center gap-2'>
